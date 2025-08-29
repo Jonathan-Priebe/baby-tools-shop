@@ -1,3 +1,14 @@
+# Project handover
+    - PDF-Link:
+    ```
+    [PDF](https://docs.google.com/document/d/1VqS_47WJUga0tL3wpNAek2DcJZuBAfjXDW2F8_8TdE8/edit?usp=sharing)
+    ```
+
+    - LOOM-Link
+    ```
+    [Video](https://www.loom.com/share/d2d9d6c8a7854ca78b10cfe2e8d76d27?sid=bd1c3a59-0e98-40b1-a3f9-15a3cb362e6d)
+    ```
+
 # E-Commerce Project For Baby Tools
 
 ## Table of Contents
@@ -109,29 +120,32 @@ To get started with the Baby Tools Shop, follow these steps:
 2.  **Create Dockerfile:**
 
     ```
-    # Use an official Python image as the base
-    FROM python:3.9-alpine
+    #Django models prepared for database structure via makemigrations.
+    python manage.py makemigrations
 
-    # Set the working directory inside the container
-    WORKDIR /app
+    #Applied Django migrations to sync database schema with models.
+    python manage.py migrate
 
-    # Copy the requirements file
-    COPY . ${WORKDIR}
+    #Check if a superuser exists; if not, one will be created.
+    echo "Checking for existing superuser..."
+    if [ "$DJANGO_SUPERUSER_USERNAME" ] && [ "$DJANGO_SUPERUSER_PASSWORD" ]; then
+    python manage.py shell << EOF
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    if not User.objects.filter(username="$DJANGO_SUPERUSER_USERNAME").exists():
+       User.objects.create_superuser(
+          "$DJANGO_SUPERUSER_USERNAME",
+          "$DJANGO_SUPERUSER_EMAIL",
+          "$DJANGO_SUPERUSER_PASSWORD"
+       )
+       print("Superuser created.")
+    else:
+       print("Superuser already exists.")
+    EOF
+    fi
 
-    # Install dependencies
-    RUN python -m pip install --no-cache-dir -r req.txt
-
-    # Make entrypoint.sh executable
-    RUN chmod +x /app/entrypoint.sh
-
-    # Change the working directory to lounch app and database
-    WORKDIR /app/babyshop_app
-
-    # Expose port 80
-    EXPOSE 8025
-
-    # This is the command that will be executed on container launch
-    ENTRYPOINT ["/bin/sh", "-c", "/app/entrypoint.sh"]
+    #Start and runs server at port 8025
+    python manage.py runserver 0.0.0.0:8025
     ```
 
 3. **entrypoint.sh clarification**
