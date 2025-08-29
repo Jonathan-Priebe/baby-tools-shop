@@ -1,13 +1,12 @@
 # Project handover
-    - PDF-Link:
-    ```
-    [PDF](https://docs.google.com/document/d/1VqS_47WJUga0tL3wpNAek2DcJZuBAfjXDW2F8_8TdE8/edit?usp=sharing)
-    ```
+   - PDF-Link:
 
-    - LOOM-Link
-    ```
+    [PDF](https://docs.google.com/document/d/1VqS_47WJUga0tL3wpNAek2DcJZuBAfjXDW2F8_8TdE8/edit?usp=sharing)
+
+
+   - LOOM-Link:
+
     [Video](https://www.loom.com/share/d2d9d6c8a7854ca78b10cfe2e8d76d27?sid=bd1c3a59-0e98-40b1-a3f9-15a3cb362e6d)
-    ```
 
 # E-Commerce Project For Baby Tools
 
