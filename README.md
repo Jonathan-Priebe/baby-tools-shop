@@ -55,7 +55,7 @@ To get started with the Baby Tools Shop, follow these steps:
    python -m pip install Django
    ```
 
-5. **Go to the root directory and create a req.txt file for the dependencies.**
+5. **Go to the root directory and create a requirements.txt file for the dependencies.**
 
    ```
     cd ..
@@ -140,7 +140,9 @@ To get started with the Baby Tools Shop, follow these steps:
     ENTRYPOINT ["/bin/sh", "-c", "/app/entrypoint.sh"]
     ```
 
-3. **entrypoint.sh clarification**
+3. **entrypoint.sh configuration**
+
+    [`entrypoint.sh`](./entrypoint.sh)
     ```
     #Django models prepared for database structure via makemigrations.
     python manage.py makemigrations
