@@ -62,15 +62,14 @@ To get started with the Baby Tools Shop, follow these steps:
    ```
 
    ```
-    nano req.txt
+    nano requirements.txt
    ```
-
-   - Django
-   - Pillow
-   - asgiref
-   - sqlparse
-   - typing_extensions
-   - tzdata 
+    [`requirements.txt`](./requirements.txt)
+   - asgiref==3.9.1
+   - Django==4.0.2
+   - pillow==11.3.0
+   - sqlparse==0.5.3
+   - typing_extensions==4.15.0
 
 6. **Apply migrations:**
 
@@ -113,8 +112,8 @@ To get started with the Baby Tools Shop, follow these steps:
     - Set for production: Replace 'your_domain_or_ip' with your actual domain or server IP to make your site accessible.
 
 2.  **Create Dockerfile:**
-
-    ```
+    [`Dockerfile`](./Dockerfile)
+    ```Dockerfile
     # Use an official Python image as the base
     FROM python:3.9-alpine
 
@@ -125,7 +124,7 @@ To get started with the Baby Tools Shop, follow these steps:
     COPY . ${WORKDIR}
 
     # Install dependencies
-    RUN python -m pip install --no-cache-dir -r req.txt
+    RUN python -m pip install --no-cache-dir -r requirements.txt
 
     # Make entrypoint.sh executable
     RUN chmod +x /app/entrypoint.sh
@@ -142,8 +141,8 @@ To get started with the Baby Tools Shop, follow these steps:
 
 3. **entrypoint.sh configuration**
 
-    ![`entrypoint.sh`](./entrypoint.sh)
-    ```
+    [`entrypoint.sh`](./entrypoint.sh)
+    ```bash
     #Django models prepared for database structure via makemigrations.
     python manage.py makemigrations
 

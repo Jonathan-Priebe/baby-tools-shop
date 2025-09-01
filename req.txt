@@ -1,6 +1,0 @@
-Django
-Pillow
-asgiref
-sqlparse
-typing_extensions
-tzdata

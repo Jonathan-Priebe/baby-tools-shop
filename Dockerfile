@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . ${WORKDIR}
 
 # Install dependencies
-RUN python -m pip install --no-cache-dir -r req.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Make entrypoint.sh executable
 RUN chmod +x /app/entrypoint.sh
