@@ -142,7 +142,7 @@ To get started with the Baby Tools Shop, follow these steps:
 
 3. **entrypoint.sh configuration**
 
-    [`entrypoint.sh`](./entrypoint.sh)
+    ![`entrypoint.sh`](./entrypoint.sh)
     ```
     #Django models prepared for database structure via makemigrations.
     python manage.py makemigrations
