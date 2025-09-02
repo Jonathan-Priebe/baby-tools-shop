@@ -1,6 +1,5 @@
 # Project handover
-   - PDF-Link - [PDF](https://docs.google.com/document/d/1VqS_47WJUga0tL3wpNAek2DcJZuBAfjXDW2F8_8TdE8/edit?usp=sharing)
-
+   - PDF-Link - [PDF](<./Project - Baby Tools Shop.pdf>)
 
    - LOOM-Link - [Video](https://www.loom.com/share/d2d9d6c8a7854ca78b10cfe2e8d76d27?sid=bd1c3a59-0e98-40b1-a3f9-15a3cb362e6d)
 
@@ -9,25 +8,22 @@
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [Local-Testing](#local-testing)
-3. [Configuration](#configuration)
-4. [Deploying with Docker](#deploying-with-docker)
-5. [Hints](#hints)
-6. [Photos](#photos)
-7. [Me](#me)
+2. [Quickstart](#quickstart)
+3. [Usage](#usage)
+4. [Hints](#hints)
+5. [Photos](#photos)
+6. [Me](#me)
 
 ## Project Overview
 
 The **Baby Tools Shop** project is a Django-based web application that allows users to browse and purchase baby tools. The application is built with **Python** and **Django** and is designed to be easily containerized and deployed using **Docker**.
 
 
-### TECHNOLOGIES
+### Prerequisites
 
-- Python 3.9
-- Django 4.0.2
-- Venv
+- [`requirements.txt`](./requirements.txt)
 
-## Local-Testing
+## Quickstart
 
 To get started with the Baby Tools Shop, follow these steps:
 
@@ -49,29 +45,7 @@ To get started with the Baby Tools Shop, follow these steps:
    cd babyshop_app
    ```
 
-4. **Install Django:**
-
-   ```
-   python -m pip install Django
-   ```
-
-5. **Go to the root directory and create a requirements.txt file for the dependencies.**
-
-   ```
-    cd ..
-   ```
-
-   ```
-    nano requirements.txt
-   ```
-    [`requirements.txt`](./requirements.txt)
-   - asgiref==3.9.1
-   - Django==4.0.2
-   - pillow==11.3.0
-   - sqlparse==0.5.3
-   - typing_extensions==4.15.0
-
-6. **Apply migrations:**
+4. **Apply migrations:**
 
    ```
    python manage.py makemigrations
@@ -81,7 +55,7 @@ To get started with the Baby Tools Shop, follow these steps:
     python manage.py migrate
    ```
 
-7. **Create a superuser:**
+5. **Create a superuser:**
 
    ```
     python manage.py createsuperuser
@@ -89,7 +63,7 @@ To get started with the Baby Tools Shop, follow these steps:
 
    - **Important**: Use a DJANGO_SUPERUSER_USERNAME, DJANGO_SUPERUSER_EMAIL and a DJANGO_SUPERUSER_PASSWORD
 
-8. **Run the development server:**
+6. **Run the development server:**
 
    ```
     python manage.py runserver
@@ -98,8 +72,9 @@ To get started with the Baby Tools Shop, follow these steps:
    - You can access the admin panel at http://<your_ip>:8000/admin
    - Create products in the admin panel
 
-## Configuration
+## Usgae
 
+### Configuration
 1.  **Configure your environment:**
     Modify the **ALLOWED_HOSTS** setting in **settings.py** to include the domain names or IP addresses that will be used to access the application.
 
@@ -113,71 +88,21 @@ To get started with the Baby Tools Shop, follow these steps:
 
 2.  **Create Dockerfile:**
     [`Dockerfile`](./Dockerfile)
-    ```Dockerfile
-    # Use an official Python image as the base
-    FROM python:3.9-alpine
 
-    # Set the working directory inside the container
-    WORKDIR /app
+    - Uses the minimal python:3.9-alpine image to ensure fast builds and a small footprint.
+    - Copies all project files into the container, installs dependencies from
+    - Launches the app via entrypoint.sh and exposes port 8025 for external access.
 
-    # Copy the requirements file
-    COPY . ${WORKDIR}
-
-    # Install dependencies
-    RUN python -m pip install --no-cache-dir -r requirements.txt
-
-    # Make entrypoint.sh executable
-    RUN chmod +x /app/entrypoint.sh
-
-    # Change the working directory to lounch app and database
-    WORKDIR /app/babyshop_app
-
-    # Expose port 80
-    EXPOSE 8025
-
-    # This is the command that will be executed on container launch
-    ENTRYPOINT ["/bin/sh", "-c", "/app/entrypoint.sh"]
-    ```
 
 3. **entrypoint.sh configuration**
 
     [`entrypoint.sh`](./entrypoint.sh)
-    ```bash
-    #Django models prepared for database structure via makemigrations.
-    python manage.py makemigrations
 
-    #Applied Django migrations to sync database schema with models.
-    python manage.py migrate
-
-    #Created Django superuser for admin interface access.
-    #python manage.py createsuperuser
-
-    # Check if a superuser exists; if not, one will be created.
-    echo "Checking for existing superuser..."
-    if [ "$DJANGO_SUPERUSER_USERNAME" ] && [ "$DJANGO_SUPERUSER_PASSWORD" ]; then
-    python manage.py shell << EOF
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-    if not User.objects.filter(username="$DJANGO_SUPERUSER_USERNAME").exists():
-      User.objects.create_superuser(
-         "$DJANGO_SUPERUSER_USERNAME",
-         "$DJANGO_SUPERUSER_EMAIL",
-         "$DJANGO_SUPERUSER_PASSWORD"
-      )
-      print("Superuser created.")
-    else:
-      print("Superuser already exists.")
-    EOF
-    fi
-
-    #Start and runs server at port 8025
-    python manage.py runserver 0.0.0.0:8025
-    ```
     - Prepared and migrate to sync database with models
     - Checker for superuser
     - start server at port 8025
     
-## Deploying with Docker
+### Deploying with Docker
 
 1.  **Copy the Project Folder to your VM**
 

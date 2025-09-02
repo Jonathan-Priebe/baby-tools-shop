@@ -1,6 +1,3 @@
-#Django models prepared for database structure via makemigrations.
-python manage.py makemigrations
-
 #Applied Django migrations to sync database schema with models.
 python manage.py migrate
 
