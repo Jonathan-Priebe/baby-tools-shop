@@ -19,58 +19,90 @@ The **Baby Tools Shop** project is a Django-based web application that allows us
 
 ### Prerequisites
 
-- [`requirements.txt`](./requirements.txt)
+- Python
+- Git
 
 ## Quickstart
 
 To get started with the Baby Tools Shop, follow these steps:
 
-1. **Set up your Python environment:**
+1. **Clone Project**
+    ```
+    git clone https://github.com/Jonathan-Priebe/baby-tools-shop.git
+    ```
+
+2. **Navigate to the project directory:**
 
    ```
-   python -m venv your_environment_name
+    cd babyshop_app
    ```
 
-2. **Activate the virtual environment:**
+3. **Set up your Python environment:**
 
-   ```
-   your_environment_name\Scripts\activate
-   ```
+    ```
+    python -m venv your_environment_name
+    ```
 
-3. **Navigate to the project directory:**
+4. **Activate the virtual environment:**
 
-   ```
-   cd babyshop_app
-   ```
+    ```
+    Windows:
+    your_environment_name\Scripts\activate
+    or 
+    Linux:
+    source env/bin/activate
+    ```
 
-4. **Apply migrations:**
+5. **Install requirements**
 
-   ```
-   python manage.py makemigrations
-   ```
+    ```
+    python -m pip install --no-cache-dir -r requirements.txt 
+    ```
 
-   ```
+6. **Environment Configuration**
+
+   - This project uses environment variables to manage sensitive settings and configuration.  
+
+   - To get started, copy the `example.env` file and rename it to `.env`:
+
+    ```bash
+    cp example.env .env
+    ```
+
+   - Then change the inhalte from .env and apply
+    ```bash
+    nano .env
+    ```
+
+
+7. **Apply migrations:**
+
+    ```
+    python manage.py makemigrations
+    ```
+
+    ```
     python manage.py migrate
-   ```
+    ```
 
-5. **Create a superuser:**
+8. **Create a superuser:**
 
-   ```
+    ```
     python manage.py createsuperuser
-   ```
+    ```
 
    - **Important**: Use a DJANGO_SUPERUSER_USERNAME, DJANGO_SUPERUSER_EMAIL and a DJANGO_SUPERUSER_PASSWORD
 
-6. **Run the development server:**
+9. **Run the development server:**
 
-   ```
+    ```
     python manage.py runserver
-   ```
+    ```
 
    - You can access the admin panel at http://<your_ip>:8000/admin
    - Create products in the admin panel
 
-## Usgae
+## Usage
 
 ### Configuration
 1.  **Configure your environment:**
@@ -85,6 +117,7 @@ To get started with the Baby Tools Shop, follow these steps:
     - Set for production: Replace 'your_domain_or_ip' with your actual domain or server IP to make your site accessible.
 
 2.  **Create Dockerfile:**
+
     [`Dockerfile`](./Dockerfile)
 
     - Uses the minimal python:3.9-alpine image to ensure fast builds and a small footprint.
