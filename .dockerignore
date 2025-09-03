@@ -1,0 +1,11 @@
+.gitignore
+.git/
+__pycache__
+project_image/
+baby_tools_shop_test/
+env/
+*.pyc
+*.sqlite3
+*.db
+*.log
+*.bak
